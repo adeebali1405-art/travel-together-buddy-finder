@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Travel Together – Travel Buddy Finder BY M.Adeeb Ali Softwer Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0d10;--card:#14181d;--card2:#1b2027;--line:#262d36;--tx:#eef2f6;--mu:#8b95a1;--ac:#B9FF66;--acx:#0b0d10;--bad:#ff6b6b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:light){:root:not([data-theme=dark]){--bg:#f4f6f8;--card:#fff;--card2:#eef1f4;--line:#dde2e8;--tx:#12161b;--mu:#5d6773;--ac:#1d1d1d;--acx:#B9FF66}}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--tx);font:15px/1.5 Inter,system-ui,sans-serif;min-height:100vh}
+h1,h2,h3,.brand{font-family:'Space Grotesk',Inter,sans-serif}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;gap:12px;align-items:center;justify-content:space-between;padding:12px 20px;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);flex-wrap:wrap}
+.brand{font-size:20px;font-weight:700;display:flex;gap:8px;align-items:center}.brand b{color:var(--ac)}
+nav{display:flex;gap:4px}
+nav button,.chip,.tabs button{background:none;border:1px solid transparent;color:var(--mu);padding:7px 14px;border-radius:99px;cursor:pointer;font:inherit}
+nav button.on,.chip.on,.tabs button.on{background:var(--ac);color:var(--acx);font-weight:600}
+nav button:hover,.chip:hover{border-color:var(--line)}
+main{max-width:1080px;margin:0 auto;padding:24px 20px 60px}
+.btn{background:var(--ac);color:var(--acx);border:0;border-radius:10px;padding:9px 16px;font:600 14px Inter;cursor:pointer}
+.btn.g{background:var(--card2);color:var(--tx);border:1px solid var(--line)}.btn.d{background:none;color:var(--bad);border:1px solid var(--bad)}.btn.s{padding:5px 10px;font-size:12px}
+.btn:disabled{opacity:.5;cursor:default}
+.hero{padding:34px;border-radius:20px;background:radial-gradient(circle at 85% 0,color-mix(in srgb,var(--ac) 22%,transparent),transparent 55%),var(--card);border:1px solid var(--line);margin-bottom:22px}
+.hero h1{font-size:clamp(26px,5vw,42px);line-height:1.1;max-width:560px}.hero p{color:var(--mu);margin:10px 0 18px;max-width:520px}
+.stats{display:flex;gap:26px;flex-wrap:wrap}.stats b{font:700 26px 'Space Grotesk';color:var(--ac);display:block}.stats span{color:var(--mu);font-size:12px}
+input,select,textarea{width:100%;background:var(--card2);border:1px solid var(--line);color:var(--tx);border-radius:10px;padding:10px 12px;font:inherit;outline:0}
+input:focus,select:focus,textarea:focus{border-color:var(--ac)}
+label{display:block;font-size:12px;color:var(--mu);margin:12px 0 4px}
+.bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;align-items:center}.bar input{flex:1;min-width:200px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:10px;transition:.2s}
+.card:hover{transform:translateY(-3px);border-color:var(--ac)}
+.card h3{font-size:18px}.mu{color:var(--mu);font-size:13px}
+.tag{display:inline-block;font-size:11px;padding:3px 9px;border-radius:99px;background:var(--card2);border:1px solid var(--line)}
+.tag.ac{background:color-mix(in srgb,var(--ac) 18%,transparent);border-color:var(--ac)}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:space-between}
+.av{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font:700 12px Inter;color:#0b0d10;flex:none}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;max-width:520px;margin:30px auto}
+.det{display:grid;gap:16px}.box{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}
+.tabs{display:flex;gap:6px;margin-bottom:14px}
+.chat{height:340px;overflow:auto;display:flex;flex-direction:column;gap:10px;padding:4px}
+.msg{display:flex;gap:8px;max-width:82%}.msg.me{align-self:flex-end;flex-direction:row-reverse}
+.bub{background:var(--card2);padding:8px 12px;border-radius:14px}.me .bub{background:var(--ac);color:var(--acx)}.bub small{display:block;opacity:.65;font-size:11px}
+.mem{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}.mem .grow{flex:1}
+#toast{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:var(--ac);color:var(--acx);padding:10px 18px;border-radius:99px;font-weight:600;opacity:0;pointer-events:none;transition:.3s;z-index:9}
+#toast.on{opacity:1}
+.empty{text-align:center;color:var(--mu);padding:40px}
+.hint{font-size:12px;color:var(--mu);margin-top:14px;text-align:center}
+</style>
+</head>
+<body>
+<div id="app"></div><div id="toast"></div>
+<script>
+const $=(s,e=document)=>e.querySelector(s),KEY='travel-together-v1',TYPES=['Trekking','Beach','Road Trip','Culture','Adventure','Family'],ICON={Trekking:'🥾',Beach:'🏖️','Road Trip':'🚗',Culture:'🏛️',Adventure:'🧗',Family:'👨‍👩‍👧'};
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const hash=async p=>{try{return[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode('tt:'+p)))].map(b=>b.toString(16).padStart(2,'0')).join('')}catch{let h=2166136261;for(const c of 'tt:'+p)h=Math.imul(h^c.charCodeAt(0),16777619);return'f'+(h>>>0).toString(16)}};
+const fnv=p=>{let h=2166136261;for(const c of 'tt:'+p)h=Math.imul(h^c.charCodeAt(0),16777619);return'f'+(h>>>0).toString(16)};
+const okPass=async(u,p)=>u.pass===await hash(p)||u.pass===fnv(p);
+let db,me,view='explore',gid=null,tab='chat',q='',ft='All',mode='login';
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(db))}catch{}};
+const uid=()=>Math.random().toString(36).slice(2,9),U=id=>db.users.find(u=>u.id===id),G=id=>db.groups.find(g=>g.id===id);
+const st=(g,u)=>g.owner===u?'Owner':g.m.find(m=>m.u===u)?.s;
+const ok=(g,u)=>['Owner','Approved'].includes(st(g,u));
+const fmt=d=>new Date(d).toLocaleDateString(undefined,{day:'numeric',month:'short',year:'numeric'});
+const ago=t=>new Date(t).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+const av=u=>`<div class="av" style="background:hsl(${[...u.id].reduce((a,c)=>a+c.charCodeAt(0)*7,0)%360} 70% 70%)">${esc(u.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase())}</div>`;
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');setTimeout(()=>e.classList.remove('on'),2200)}
+async function init(){
+ try{db=JSON.parse(localStorage.getItem(KEY))}catch{}
+ if(!db){const h=await hash('demo123'),u=(id,name)=>({id,name,email:id+'@travel.com',pass:h,joined:Date.now()}),d=n=>Date.now()+n*864e5,
+ g=(name,dest,type,priv,owner,desc,days,m,c)=>({id:uid(),name,dest,type,priv,owner,desc,date:d(days),seats:12,m:m.map(([u,s])=>({u,s})),chat:c.map(([u,x],i)=>({u,x,t:Date.now()-(c.length-i)*36e5}))});
+ db={session:null,users:[u('demo','Demo Traveler'),u('aisha','Aisha Khan'),u('omar','Omar Farooq'),u('sara','Sara Malik')],groups:[
+ g('Fairy Meadows Trek','Fairy Meadows, Pakistan','Trekking',0,'aisha','Five days under Nanga Parbat. Beginners welcome, tents provided.',30,[['omar','Approved'],['sara','Approved']],[['aisha','Welcome everyone! Pack warm layers 🧥'],['omar','Which day do we start the jeep ride?']]),
+ g('Hunza Road Trip','Hunza Valley','Road Trip',0,'omar','Karakoram Highway convoy with photo stops and local food.',45,[['aisha','Approved']],[['omar','Looking for 2 more drivers to share the ride.']]),
+ g('Maldives Sunset Squad','Maldives','Beach',1,'sara','Private island-hopping group. Owner approves requests.',70,[['aisha','Pending']],[['sara','Budget around $900 each, flights excluded.']]),
+ g('Istanbul Culture Walk','Istanbul, Türkiye','Culture',0,'aisha','Mosques, bazaars and Bosphorus ferries with a history-loving crew.',55,[['sara','Approved']],[['aisha','Anyone speaking Turkish? 😄']]),
+ g('Skardu Adventure Camp','Skardu','Adventure',1,'omar','Rafting, sand dunes and Deosai night skies. Private, fitness required.',90,[],[['omar','Requests open until the 1st.']]),
+ g('Family Murree Weekend','Murree','Family',0,'sara','Relaxed weekend for families with kids. Safe and budget-friendly.',14,[['demo','Approved']],[['sara','Kid-friendly hotel booked ✅']])]};save()}
+ if(!U('demo'))db.users.push({id:'demo',name:'Demo Traveler',joined:Date.now()});Object.assign(U('demo'),{email:'demo@travel.com',pass:await hash('demo123')});save();
+ me=U(db.session);render()}
+function render(){
+ const my=db.groups.filter(g=>st(g,me?.id)),pend=me?db.groups.filter(g=>g.owner===me.id).reduce((a,g)=>a+g.m.filter(m=>m.s==='Pending').length,0):0;
+ $('#app').innerHTML=`<header><div class="brand">🧭 Travel<b>Together</b></div>${me?`<nav>${[['explore','🔍 Explore'],['mine','🎒 My Groups'+(pend?` (${pend})`:'')],['create','➕ Create']].map(([k,l])=>`<button data-a="go" data-v="${k}" class="${view===k?'on':''}">${l}</button>`).join('')}</nav><div class="row">${av(me)}<button class="btn g s" data-a="out">Log out</button></div>`:''}</header><main>${!me?authV():view==='detail'?detV():view==='create'?createV():view==='mine'?`<h2>My Groups</h2><br><div class="grid">${my.map(card).join('')||'<p class="empty">You haven’t joined any group yet.</p>'}</div>`:exploreV()}</main>`;
+ if(view==='explore'&&me)grid();const c=$('.chat');if(c)c.scrollTop=c.scrollHeight}
+const authV=()=>`<div class="hero"><h1>Find your travel tribe.</h1><p>Join groups heading where you want to go, chat with members and plan trips together.</p></div>
+<div class="panel" id="auth"><div class="tabs"><button type="button" data-a="mode" data-m="login" class="${mode==='login'?'on':''}">Log in</button><button type="button" data-a="mode" data-m="reg" class="${mode==='reg'?'on':''}">Register</button></div>
+${mode==='reg'?'<label>Full name</label><input name="name" required minlength="2">':''}<label>Email</label><input name="email" type="email" required><label>Password</label><input name="pass" type="password" required minlength="6">
+<br><button type="button" data-a="sub" data-f="auth" class="btn" style="width:100%;margin-top:14px">${mode==='reg'?'Create account':'Log in'}</button>${mode==='login'?'<button type="button" class="btn g" style="width:100%;margin-top:8px" data-a="demo">⚡ Use demo account</button>':''}<p class="hint">Demo: demo@travel.com / demo123 · data stays in your browser</p></div>`;
+const exploreV=()=>{const n=db.groups.length;return`<div class="hero"><h1>Where to next, ${esc(me.name.split(' ')[0])}?</h1><p>Search travel groups, request to join and start chatting with your future travel buddies.</p><div class="stats"><div><b>${n}</b><span>Groups</span></div><div><b>${db.users.length}</b><span>Travellers</span></div><div><b>${new Set(db.groups.map(g=>g.dest)).size}</b><span>Destinations</span></div></div></div>
+<div class="bar"><input id="q" placeholder="🔍 Search by group or destination…" value="${esc(q)}"><div id="chips" style="display:flex;gap:6px;flex-wrap:wrap"></div></div><div class="grid" id="grid"></div>`};
+function grid(){$('#chips').innerHTML=['All',...TYPES].map(t=>`<button class="chip ${ft===t?'on':''}" data-a="ft" data-t="${t}">${ICON[t]||'🌍'} ${t}</button>`).join('');
+ const l=db.groups.filter(g=>(ft==='All'||g.type===ft)&&(g.name+g.dest).toLowerCase().includes(q.toLowerCase()));$('#grid').innerHTML=l.map(card).join('')||'<p class="empty">No groups found. Try another search 🧳</p>'}
+const card=g=>{const s=st(g,me.id),n=g.m.filter(m=>m.s==='Approved').length+1;return`<div class="card"><div class="row"><span class="tag ac">${ICON[g.type]} ${g.type}</span><span class="tag">${g.priv?'🔒 Private':'🌐 Public'}</span></div><h3>${esc(g.name)}</h3><div class="mu">📍 ${esc(g.dest)} · 📅 ${fmt(g.date)}</div><p class="mu" style="flex:1">${esc(g.desc)}</p><div class="row"><span class="mu">👥 ${n}/${g.seats} · by ${esc(U(g.owner).name)}</span>${s?`<span class="tag">${s==='Approved'?'✅':s==='Pending'?'⏳':s==='Owner'?'👑':'⛔'} ${s}</span>`:''}</div><button class="btn" data-a="open" data-id="${g.id}">View group →</button></div>`};
+const createV=()=>`<div class="panel" id="cf" style="max-width:600px"><h2>✈️ Create a travel group</h2><label>Group name</label><input name="name" required maxlength="50"><label>Destination</label><input name="dest" required><label>Trip type</label><select name="type">${TYPES.map(t=>`<option>${t}</option>`)}</select><label>Departure date</label><input name="date" type="date" required min="${new Date().toISOString().slice(0,10)}"><label>Max travellers</label><input name="seats" type="number" min="2" max="100" value="12"><label>Privacy</label><select name="priv"><option value="0">🌐 Public – anyone can join & read chat</option><option value="1">🔒 Private – owner approves requests</option></select><label>Description</label><textarea name="desc" rows="3" required maxlength="300"></textarea><br><button type="button" data-a="sub" data-f="cf" class="btn" style="width:100%;margin-top:14px">Create group</button></div>`;
+function detV(){const g=G(gid);if(!g)return'<p class="empty">Group not found.</p>';const s=st(g,me.id),own=s==='Owner',see=!g.priv||ok(g,me.id),n=g.m.filter(m=>m.s==='Approved').length+1;
+ const act=own?`<button class="btn d s" data-a="del">Delete group</button>`:!s?`<button class="btn" data-a="join">${g.priv?'Request to join':'Join group'}</button>`:s==='Approved'?`<button class="btn g" data-a="leave">Leave</button>`:`<span class="tag">${s==='Pending'?'⏳ Request pending':'⛔ '+s}</span>`;
+ const all=[{u:g.owner,s:'Owner'},...g.m];
+ return`<button class="btn g s" data-a="go" data-v="explore">← Back</button><br><br><div class="det"><div class="box"><div class="row"><div><span class="tag ac">${ICON[g.type]} ${g.type}</span> <span class="tag">${g.priv?'🔒 Private':'🌐 Public'}</span><h1 style="margin:8px 0">${esc(g.name)}</h1><div class="mu">📍 ${esc(g.dest)} · 📅 ${fmt(g.date)} · 👥 ${n}/${g.seats}</div></div>${act}</div><p style="margin-top:12px">${esc(g.desc)}</p></div>
+ <div class="box"><div class="tabs">${['chat','members'].map(t=>`<button data-a="tab" data-t="${t}" class="${tab===t?'on':''}">${t==='chat'?'💬 Chat':'👥 Members ('+all.length+')'}</button>`).join('')}</div>
+ ${tab==='chat'?(see?`<div class="chat">${g.chat.map(c=>`<div class="msg ${c.u===me.id?'me':''}">${av(U(c.u))}<div class="bub"><small>${esc(U(c.u).name)} · ${ago(c.t)}</small>${esc(c.x)}</div></div>`).join('')||'<p class="empty">No messages yet.</p>'}</div>${ok(g,me.id)?'<div id="cm" class="row" style="margin-top:12px;flex-wrap:nowrap"><input name="x" placeholder="Write a message…" required maxlength="400" autocomplete="off"><button type="button" data-a="sub" data-f="cm" class="btn">Send ➤</button></div>':'<p class="hint">Join this group to post messages.</p>'}`:'<p class="empty">🔒 Private group. Chat is visible after the owner approves your request.</p>'):
+ `${all.map(m=>{const u=U(m.u);return`<div class="mem">${av(u)}<div class="grow"><b>${esc(u.name)}</b><div class="mu">${m.s==='Owner'?'👑 Owner':m.s}</div></div>${own&&m.s!=='Owner'?['Approved','Rejected','Blocked','Pending'].filter(x=>x!==m.s).map(x=>`<button class="btn g s" data-a="set" data-u="${m.u}" data-s="${x}">${x}</button>`).join(''):''}</div>`}).join('')}`}</div></div>`}
+const acts={go:d=>{view=d.v;if(d.v!=='detail')gid=null;render()},mode:d=>{mode=d.m;render()},ft:d=>{ft=d.t;grid()},open:d=>{gid=d.id;tab='chat';view='detail';render()},tab:d=>{tab=d.t;render()},
+ sub:d=>sub(d.f),demo:()=>{me=U('demo');db.session='demo';save();view='explore';render()},out:()=>{db.session=null;me=null;save();render()},
+ join:()=>{const g=G(gid);g.m.push({u:me.id,s:g.priv?'Pending':'Approved'});save();toast(g.priv?'Request sent ⏳':'Welcome aboard! 🎉');render()},
+ leave:()=>{const g=G(gid);g.m=g.m.filter(m=>m.u!==me.id);save();render()},
+ set:d=>{G(gid).m.find(m=>m.u===d.u).s=d.s;save();toast('Status: '+d.s);render()},
+ del:()=>{if(confirm('Delete this group permanently?')){db.groups=db.groups.filter(g=>g.id!==gid);save();view='explore';render()}}};
+document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');b&&acts[b.dataset.a]?.(b.dataset)});
+document.addEventListener('input',e=>{if(e.target.id==='q'){q=e.target.value;grid()}});
+const sub=async id=>{const box=$('#'+id),f={};let bad=0;box.querySelectorAll('[name]').forEach(i=>{f[i.name]=i.value;if(i.required&&!i.value.trim())bad=1});if(bad)return toast('Please fill all fields');
+ if(id==='auth'){const em=f.email.trim().toLowerCase(),h=await hash(f.pass);
+  if(mode==='reg'){if(db.users.some(u=>u.email===em))return toast('Email already registered');const u={id:uid(),name:f.name.trim(),email:em,pass:h,joined:Date.now()};db.users.push(u);db.session=u.id;me=u}
+  else{const u=db.users.find(u=>u.email===em);if(!u)return toast('No account with this email. Register first or use the demo account');if(!await okPass(u,f.pass))return toast('Wrong password');db.session=u.id;me=u}
+  save();view='explore';render()}
+ if(id==='cf'){const g={id:uid(),name:f.name.trim(),dest:f.dest.trim(),type:f.type,priv:+f.priv,owner:me.id,desc:f.desc.trim(),date:new Date(f.date).getTime(),seats:+f.seats,m:[],chat:[]};db.groups.unshift(g);save();toast('Group created 🚀');gid=g.id;view='detail';tab='chat';render()}
+ if(id==='cm'){G(gid).chat.push({u:me.id,x:f.x.trim(),t:Date.now()});save();render()}};
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.tagName==='INPUT'){const b=e.target.closest('#auth,#cf,#cm');b&&(e.preventDefault(),sub(b.id))}});
+init();
+</script>
+</body>
+</html>
